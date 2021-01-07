@@ -54,6 +54,11 @@ const App = () =>  {
     setRecording(recordRef.current.state)
   }
 
+  const failRecording = (error) => {              
+    console.error('mediaDevice.getUserMedia() error:', error);
+    return; 
+  }
+
   return (
     <div className="App">
       <div>
@@ -90,11 +95,6 @@ const App = () =>  {
       </div>
     </div>
   );
-}
-
-const failRecording = (error) => {              
-  console.error('mediaDevice.getUserMedia() error:', error);
-  return; 
 }
 
 export default App;
