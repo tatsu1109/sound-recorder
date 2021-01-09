@@ -22,6 +22,11 @@ const App = () => {
     setAudio(audio)
   };
 
+  const handleAudioListDeleteClick = (list, { id }) => {
+    console.log(id)
+    setAudioList(list.filter(item => item.id !== id))
+  };
+
   const handleRecordingButtonOnClick = () => {
     recording === 'inactive' ? startRecording() : recordRef.current.stop()
   }
@@ -54,7 +59,11 @@ const App = () => {
 
     recordRef.current.addEventListener('stop', () => {
       const audio = URL.createObjectURL(new Blob(tempChunks))
-      const audioListItem = {id: audioList.length + 1, name: fileName, audio: audio}
+      const audioListItem = {
+        id: audioList.length === 0 ? 1 : audioList.flatMap(item => item.id).reduce((a, b) => Math.max(a, b)) + 1,
+        name: fileName,
+        audio: audio
+      }
       handleAudioListItemClick(audioListItem)
       setAudioList([...audioList, audioListItem])
       setRecording(recordRef.current.state)
@@ -87,7 +96,8 @@ const App = () => {
       <div>
         <SelectedList
           list={audioList}
-          handleClick={handleAudioListItemClick}
+          handleItemClick={handleAudioListItemClick}
+          handleDeleteClick={handleAudioListDeleteClick}
           index={selectedIndex} />
       </div>
     </div>
