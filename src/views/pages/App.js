@@ -77,7 +77,7 @@ const App = () => {
           onChange={event => setFileName(event.target.value)} />
         <IconButton
           color='secondary'
-          handleClick={recording === 'inactive' ? startRecording() : recordRef.current.stop()}
+          handleClick={() => recording === 'inactive' ? startRecording() : recordRef.current.stop()}
           icon={recording === 'inactive' ? <KeyboardVoiceIcon /> : <StopIcon />} 
         />
       </div>
